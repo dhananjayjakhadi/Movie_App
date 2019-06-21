@@ -1,10 +1,26 @@
 const express = require('express');
 const app = express();
 
+// const courses = [
+//     {id: 1, course: 'newCourse1'},
+//     {id: 2, course: 'newCourse1'},
+//     {id: 3, course: 'newCourse1'}
+// ]
 app.get("/", (req, res) => {
-    res.send('Welcome to App');
+    res.send('Welcome to App!!');
 })
 
-const port =  process.env.port || 3000;
+app.get("/api/courses", (req, res) => {
+  res.send([1,2,3]);  
+})
 
-app.listen(3000, () => console.log(`Server is Listening on ${port}`));
+app.get("/api/courses/:id", (req, res) => {
+    res.send(req.params.id);  
+})
+
+app.get("/api/posts/:year/:month", (req, res) => {
+    res.send(req.params);  
+})
+
+const port =  process.env.PORT || 3000;
+app.listen(port, () => console.log(`Server is Listening on ${port}`));
