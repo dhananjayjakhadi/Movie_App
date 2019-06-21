@@ -1,10 +1,12 @@
 const express = require('express');
 const app = express();
 
+app.use(express.json());
+
 const courses = [
-    {id: 1, course: 'newCourse1'},
-    {id: 2, course: 'newCourse1'},
-    {id: 3, course: 'newCourse1'}
+    {id: 1, name: 'newCourse1'},
+    {id: 2, name: 'newCourse1'},
+    {id: 3, name: 'newCourse1'}
 ];
 app.get("/", (req, res) => {
     res.send('Welcome to App!!');
@@ -19,6 +21,15 @@ app.get("/api/courses/:id", (req, res) => {
     if(!course) res.status(404).send('Course not found');
     res.send(course);
 })
+
+app.post("/api/courses",(req, res) => {
+    const course = {
+       id : courses.length + 1,
+       name : req.body.name
+    };
+    courses.push(course);
+    res.send(course);
+});
 
 const port =  process.env.PORT || 3000;
 app.listen(port, () => console.log(`Server is Listening on ${port}`));
